@@ -100,8 +100,16 @@ const Navbar = () => {
                 <div className="flex items-center gap-3">
                   {
                     navlinks?.map((item, index) =>
-                      <Link href={item?.path} key={index} className={`${pathname === item?.path ? "bg-primary-30/30" : "bg-primary-70"} size-12 flex items-center justify-center rounded-full`}>
+                      <Link href={item?.path} key={index} className="relative group">
+                        <div className={`${pathname === item?.path ? "bg-primary-30/30" : "bg-primary-70"} size-12 flex items-center justify-center rounded-full`}>
                         {item?.icon}
+                      </div>
+                      <div
+                        className=" absolute -top-3 left-0 right-0 translate-y-[-20px] opacity-0 z-[-1] group-hover:translate-y-0 group-hover:opacity-100 group-hover:z-[1000] transition-all duration-500">
+                        <p className="text-[9px] w-max bg-primary-20 text-white rounded-3xl px-3 py-1">
+                            {item?.label}
+                        </p>
+                    </div>
                       </Link>
                     )
                   }
