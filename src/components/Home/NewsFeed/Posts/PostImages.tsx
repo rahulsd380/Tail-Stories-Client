@@ -8,7 +8,7 @@ type TPostImagesProps = {
 const PostImages:React.FC<TPostImagesProps> = ({ images }) => {
   if (images?.length === 1) {
     return (
-      <div className="flex gap-3 border-b pb-3 mt-3">
+      <div className="flex gap-3 mt-3">
         <Image
           src={images[0]}
           width={100}
@@ -22,7 +22,7 @@ const PostImages:React.FC<TPostImagesProps> = ({ images }) => {
 
   if (images?.length === 2) {
     return (
-      <div className="flex gap-3 border-b pb-3 mt-3">
+      <div className="flex gap-3 mt-3">
         {images.map((img, index) => (
           <Image
             key={index}

@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { ICONS } from "../../../../../public";
 import PostDropdown from "./PostDropdown";
-import ShareButton from "./ShareButton";
 import CommentButton from "./CommentButton";
 import PostDescription from "./PostDescription";
 import PostImages from "./PostImages";
@@ -15,6 +14,8 @@ import PaymentModal from "./PaymentModal";
 import { selectCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { TUser } from "./Comments";
+import { BiLike } from "react-icons/bi";
+import { IoShareSocial } from "react-icons/io5";
 
 const PostCard = ({ post }: { post: TPost }) => {
   const user = useAppSelector(selectCurrentUser) as TUser | null;
@@ -116,45 +117,15 @@ const PostCard = ({ post }: { post: TPost }) => {
             <PostImages images={post?.images || []} />
           )}
 
-          {/* Total likes and comments */}
-          <div className="flex items-center justify-between mt-4">
-            <div className="flex items-center justify-center gap-2 text-sm text-primary-10/80">
-              <Image
-                src={ICONS.like}
-                width={20}
-                height={20}
-                alt="like-icon"
-                quality={100}
-              />
+          <div className="flex items-center justify-between border-y py-2 mt-4">
+            <div className="flex items-center justify-center gap-4 text-sm text-primary-10/80">
+              <button onClick={handleUpvote} className="flex items-center gap-2">
+                <BiLike className="text-primary-20/80 text-xl" />
+                Like
+              </button>
+              <div className="w-[1px] h-[23px] bg-primary-60"></div>
               {post?.upvotes?.length}
             </div>
-            <div className="flex items-center justify-center gap-2 text-sm text-primary-10/80">
-              <Image
-                src={ICONS.comment}
-                width={20}
-                height={20}
-                alt="comment-icon"
-                quality={100}
-              />
-              {post?.comments?.length}
-            </div>
-          </div>
-
-          {/* Like, comment, share button */}
-          <div className="mt-4 flex items-center justify-between gap-5">
-            <button
-              onClick={handleUpvote}
-              className="flex items-center justify-center gap-2 text-sm text-primary-10/80 bg-primary-60 px-4 py-3 rounded-xl w-full"
-            >
-              <Image
-                src={ICONS.like}
-                width={20}
-                height={20}
-                alt="like-icon"
-                quality={100}
-              />
-              Like
-            </button>
             <CommentButton
               postId={post?._id}
               postedAt={post?.createdAt ? new Date(post.createdAt).toLocaleDateString() : ""}
@@ -171,13 +142,21 @@ const PostCard = ({ post }: { post: TPost }) => {
             {!isVerified && contentType === "premium" ? (
               <button
                 onClick={() => setOpenPaymentModal(true)}
-                className="flex justify-center text-sm text-white bg-primary-gradient px-4 py-3 rounded-xl w-full"
+                className="flex justify-center text-sm text-white bg-primary-gradient px-4 py-3 rounded-xl"
               >
                 Unlock
               </button>
             ) : (
-              <ShareButton />
+              <div className="flex items-center justify-center gap-4 text-sm text-primary-10/80">
+                <div className="flex items-center gap-2">
+                  <IoShareSocial className="text-primary-20/80 text-xl" />
+                  Share
+                </div>
+                <div className="w-[1px] h-[23px] bg-primary-60"></div>
+                {post?.comments?.length}
+              </div>
             )}
+
           </div>
         </div>
       </div>
@@ -185,7 +164,7 @@ const PostCard = ({ post }: { post: TPost }) => {
       <Modal
         openModal={openPaymentModal}
         setOpenModal={setOpenPaymentModal}
-        classNames="max-w-[700px] w-full h-[470px]"
+        classNames="max-w-[700px] w-full h-[550px]"
       >
         <PaymentModal setOpenPaymentModal={setOpenPaymentModal} />
       </Modal>

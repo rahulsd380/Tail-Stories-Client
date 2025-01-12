@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { ICONS, IMAGES } from "../../../../public";
+import { IMAGES } from "../../../../public";
 import Button from "@/components/Reusable/Button";
 import Container from "@/components/Container/Container";
 import UserDropdown from "./UserDropdown";
@@ -9,13 +9,19 @@ import HamburgerMenu from "./HamburgerMenu";
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import { selectCurrentUser } from "@/redux/features/Auth/authSlice";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FiSearch } from "react-icons/fi";
+import { TbUsers } from "react-icons/tb";
+import { AiOutlineProfile } from "react-icons/ai";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { HiOutlineUserGroup } from "react-icons/hi";
+import { GoHome } from "react-icons/go";
 
 
 
 const Navbar = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = () => {
@@ -30,16 +36,38 @@ const Navbar = () => {
     setIsMounted(true);
   }, []);
 
+  const navlinks = [
+    {
+      label: "Home",
+      icon: <GoHome className="text-primary-20/80 text-2xl" />,
+      path: "/"
+    },
+    {
+      label: "Friends",
+      icon: <TbUsers className="text-primary-20/80 text-2xl" />,
+      path: "/friends"
+    },
+    {
+      label: "Groups",
+      icon: <HiOutlineUserGroup className="text-primary-20/80 text-2xl" />,
+      path: "/groups"
+    },
+    {
+      label: "Pages",
+      icon: <AiOutlineProfile className="text-primary-20 text-2xl" />,
+      path: "/pages"
+    },
+  ];
+
   if (!isMounted) {
     return null;
   }
 
 
   return (
-    <div className="bg-white py-4 shadow">
-    <Container>
-      <div className="font-Lato flex items-center justify-between">
-        <div className="flex items-center gap-6">
+    <div className="bg-white py-3 shadow">
+      <Container>
+        <div className="font-Lato flex items-center justify-between">
           <Link href={"/"}
             className="flex items-center gap-2 text-2xl font-bold text-primary-30 "
           >
@@ -52,110 +80,64 @@ const Navbar = () => {
             Tail Stories
           </Link>
 
-          <div className="hidden lg:block relative">
-            <input
-            onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Find post"
-              type="text"
-              className="bg-primary-70 px-3 py-[10px] rounded-lg border border-primary-30 focus:outline-none focus:border-primary-20 transition duration-300 focus:shadow"
-            />
-           <FiSearch
-              onClick={handleSearch}
-              className="absolute top-1/2 right-3 transform -translate-y-1/2 text-primary-30 cursor-pointer"
-              size={20}
-            />
+          <div className="flex items-center gap-6">
+            <div className="hidden lg:block relative max-w-[400px]">
+              <input
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Find post"
+                type="text"
+                className="bg-primary-70 px-3 py-[10px] rounded-lg border border-primary-20/70 focus:outline-none focus:border-primary-30 transition duration-300 focus:shadow w-[300px]"
+              />
+              <FiSearch
+                onClick={handleSearch}
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-primary-30 cursor-pointer"
+                size={20}
+              />
+            </div>
+            {
+              user !== null &&
+              <div className="hidden lg:flex items-center gap-8">
+                <div className="flex items-center gap-3">
+                  {
+                    navlinks?.map((item, index) =>
+                      <Link href={item?.path} key={index} className={`${pathname === item?.path ? "bg-primary-30/30" : "bg-primary-70"} size-12 flex items-center justify-center rounded-full`}>
+                        {item?.icon}
+                      </Link>
+                    )
+                  }
+                </div>
+
+
+
+              </div>
+            }
           </div>
+
+          {user === null ?
+            <div className="flex items-center gap-4">
+              <Link href={"/login"}>
+                <Button variant="bordered">Login</Button>
+              </Link>
+              <Link href={"/signup"}>
+                <Button variant="primary">Create Account</Button>
+              </Link>
+            </div>
+            :
+            <div className="flex items-center gap-6">
+              <div className="relative">
+                <IoMdNotificationsOutline className="text-primary-20/80 text-3xl" />
+                <div className="size-4 rounded-full bg-primary-20 text-white text-xs flex items-center justify-center absolute -top-0.5 -right-0.5">
+                  2
+                </div>
+              </div>
+
+              <UserDropdown />
+            </div>
+          }
+
+          <HamburgerMenu />
         </div>
-
-        {user !== null ? (
-          <div className="hidden lg:flex items-center gap-8">
-            {/* Theme icon */}
-            <div>
-              <Image
-                src={ICONS.moon}
-                width={25}
-                height={25}
-                alt="notification icon"
-                className="dark:hidden cursor-pointer"
-              />
-              <Image
-                src={ICONS.sun}
-                width={30}
-                height={30}
-                alt="notification icon"
-                className="hidden dark:block cursor-pointer"
-              />
-            </div>
-
-            {/* Message icon */}
-            <div>
-              <Image
-                src={ICONS.emailGray}
-                width={25}
-                height={25}
-                alt="notification icon"
-                className="dark:hidden cursor-pointer"
-              />
-              <Image
-                src={ICONS.emailPurple}
-                width={30}
-                height={30}
-                alt="notification icon"
-                className="hidden dark:block cursor-pointer"
-              />
-            </div>
-
-            {/* Notification icon */}
-            <div className="relative">
-              <Image
-                src={ICONS.notificationGray}
-                width={30}
-                height={30}
-                alt="notification icon"
-                className="dark:hidden cursor-pointer"
-              />
-              <Image
-                src={ICONS.notificationPurple}
-                width={30}
-                height={30}
-                alt="notification icon"
-                className="hidden dark:block cursor-pointer"
-              />
-
-              <div className="size-4 rounded-full bg-primary-30 text-white text-xs flex items-center justify-center absolute -top-0.5 -right-0.5">
-                2
-              </div>
-            </div>
-
-            {/* USer dropdown menu */}
-            {/* <div className="bg-primary-70 p-2 rounded-3xl border border-primary-30 focus:outline-none focus:border-primary-20 transition duration-300 focus:shadow flex items-center gap-3">
-              <div className="size-8 rounded-full bg-primary-30"></div>
-              <div className="flex items-center gap-[6px]">
-              <h1 className="font-medium">Rahul Sutradhar</h1>
-              <Image
-              src={ICONS.downArrow}
-              width={15}
-                height={15}
-              alt="notification icon"
-              className="dark:hidden cursor-pointer"
-          />
-              </div>
-          </div> */}
-            <UserDropdown />
-          </div>
-        ) : (
-          <div className="flex items-center gap-4">
-            <Link href={"/login"}>
-              <Button variant="bordered">Login</Button>
-            </Link>
-            <Link href={"/signup"}>
-              <Button variant="primary">Create Account</Button>
-            </Link>
-          </div>
-        )}
-        <HamburgerMenu />
-      </div>
-    </Container>
+      </Container>
     </div>
   );
 };

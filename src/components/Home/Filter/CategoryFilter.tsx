@@ -22,7 +22,7 @@ const CategoryFilter:React.FC<TCategoryFilterProps> = ({ setSelectedCategory, se
       label: "Tip",
       icon: <MdOutlineTipsAndUpdates className="text-lg"/>,
       postLength: tip?.length,
-      bgClass: selectedCategory === "Tip" ? "bg-primary-gradient text-white" : "bg-primary-70 text-primary-10/70"
+      bgClass: selectedCategory === "Tip" ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white" : "bg-primary-70 text-primary-10/70"
     },
     {
       label: "Story",
@@ -55,8 +55,8 @@ const CategoryFilter:React.FC<TCategoryFilterProps> = ({ setSelectedCategory, se
         {categories.map((category, index) => (
           <button
             key={index}
-            onClick={() => setSelectedCategory(category.label)} // Update category on click
-            className={`${category.bgClass} font-medium flex items-center justify-between text-[15px] rounded-md px-3 py-3 w-full`} // Apply dynamic class
+            onClick={() => setSelectedCategory(category.label)}
+            className={`${category.bgClass} font-medium flex items-center justify-between text-[15px] rounded-md px-3 py-3 w-full`}
           >
             <div className="flex items-center gap-2">
             {category.icon}

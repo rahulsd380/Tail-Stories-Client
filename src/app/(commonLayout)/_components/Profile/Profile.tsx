@@ -10,7 +10,7 @@ const Profile = () => {
   console.log(data)
   const {data:myPosts} = useGetmyPostsQuery(data?.data?._id);
   return (
-    <div className="flex w-full flex-col items-center justify-center space-y-4 rounded-xl bg-[#F6F7F8] p-4 border dark:bg-[#18181B] font-Lato">
+    <div className="flex w-full flex-col items-center justify-center space-y-4 rounded-xl bg-white p-4 shadow font-Lato">
       <div className="group relative size-[110px] rounded-full">
         {
           data?.data?.profilePicture ?

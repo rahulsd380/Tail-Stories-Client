@@ -13,7 +13,7 @@ const config: Config = {
       colors: {
         primary: {
           10: "#201E43",
-          20: "#C662E3",
+          20: "#6366f1",
           30: "#A863F6",
           40: "#EEEEEE",
           50: "#F5F7F8",
@@ -29,7 +29,7 @@ const config: Config = {
 
       backgroundImage: {
         'bg-gradient': 'linear-gradient(to top, #f3e7e7 0%, #F6F7F8 99%, #F6F7F8 100%)',
-        'primary-gradient': 'linear-gradient(135deg, #C662E3, #A863F6)',
+        'primary-gradient': 'linear-gradient(to right, #6366f1, #9333ea)',
         'primary-gradient-opacity': 'linear-gradient(135deg, rgba(198, 98, 227, 0.4), rgba(168, 99, 246, 0.5))',
       },
     },
