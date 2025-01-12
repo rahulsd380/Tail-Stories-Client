@@ -69,7 +69,7 @@ const Navbar = () => {
       <Container>
         <div className="font-Lato flex items-center justify-between">
           <Link href={"/"}
-            className="flex items-center gap-2 text-2xl font-bold text-primary-30 "
+            className="flex items-center gap-2 text-2xl font-bold text-primary-20"
           >
             <Image
               src={IMAGES.tailStoriesLogo}

@@ -63,7 +63,7 @@ const UserDropdown = () => {
     <div ref={dropDownRef} className="relative mx-auto w-fit">
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="bg-primary-70 px-2 py-[6px] rounded-3xl border border-primary-30 focus:outline-none focus:border-primary-20 transition duration-300 focus:shadow flex items-center gap-3 w-[200px]"
+        className="bg-primary-70 px-2 py-[6px] rounded-3xl border border-primary-20 focus:outline-none focus:border-primary-20/80 transition duration-300 focus:shadow flex items-center gap-3 w-[200px]"
       >
         <div className="size-8 rounded-full bg-white border flex items-center justify-center">
         {

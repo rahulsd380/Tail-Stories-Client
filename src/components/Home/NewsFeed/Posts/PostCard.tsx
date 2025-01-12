@@ -16,6 +16,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { TUser } from "./Comments";
 import { BiLike } from "react-icons/bi";
 import { IoShareSocial } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const PostCard = ({ post }: { post: TPost }) => {
   const user = useAppSelector(selectCurrentUser) as TUser | null;
@@ -37,6 +38,7 @@ const PostCard = ({ post }: { post: TPost }) => {
       console.log(err);
     }
   };
+  console.log(post);
 
   return (
     <div className="bg-white p-4 shadow rounded-xl font-Lato flex flex-col gap-4 mb-4">
@@ -52,14 +54,7 @@ const PostCard = ({ post }: { post: TPost }) => {
               quality={100}
             />
           ) : (
-            <Image
-              width={32}
-              height={32}
-              className="size-8 rounded-full object-cover"
-              src={ICONS.user}
-              alt=""
-              quality={100}
-            />
+            <FaRegUserCircle className="text-primary-20 text-2xl" />
           )}
         </div>
         {/* Profile / header */}

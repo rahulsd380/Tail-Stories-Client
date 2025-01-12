@@ -4,7 +4,7 @@ import FriendCard from "../AllFriends/FriendCard";
 const YouMayKnow = () => {
     return (
         <FriendPageContainer title="People You may Know" >
-            <FriendCard />
+            <FriendCard variant="Friend" />
         </FriendPageContainer>
     );
 };

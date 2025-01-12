@@ -4,7 +4,7 @@ import FriendCard from "../AllFriends/FriendCard";
 const SuggestedFriends = () => {
     return (
         <FriendPageContainer title="Suggested For You" >
-            <FriendCard />
+            <FriendCard variant="Friend" />
         </FriendPageContainer>
     );
 };
