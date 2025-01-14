@@ -12,7 +12,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
       <div className="w-full lg:w-[35%] md:w-[60%] mx-auto p-7 h-screen flex flex-col">
         <Link
           href={"/"}
-          className="flex items-center gap-2 text-2xl font-bold text-primary-30 dark:text-primary-40"
+          className="flex items-center gap-2 text-2xl font-bold text-primary-20 dark:text-primary-40"
         >
           <Image
             src={IMAGES.tailStoriesLogo}

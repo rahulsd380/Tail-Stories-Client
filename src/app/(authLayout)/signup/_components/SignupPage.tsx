@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useSignupMutation } from "@/redux/features/Auth/authApi";
 import { useRouter } from "next/navigation";
 import { ICONS } from "../../../../../public";
+import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
 
 type TSignUpData = {
   name: string;
@@ -168,7 +169,7 @@ const SignupPage = () => {
           </div>
 
           <Button variant="primary">
-            {isSigningUp ? "Creating Account..." : "Sign Up"}
+            {isSigningUp ? <LoadingSpinner/> : "Sign Up"}
           </Button>
 
           <p className="max-w-[500px] text-sm text-[#364F53] dark:text-[#D9D9D9]/50 text-center">

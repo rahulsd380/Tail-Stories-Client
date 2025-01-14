@@ -108,6 +108,14 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["posts"],
     }),
 
+    joinGroup: builder.mutation({
+      query: (groupId) => ({
+        method: "PUT",
+        url: `/users/join-group/${groupId}`,
+      }),
+      invalidatesTags: ["groups"],
+    }),
+
     changeUserRoleToAdmin: builder.mutation({
       query: (userId) => ({
         url: `/users/make-admin/${userId}`,
@@ -157,4 +165,4 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useSignupMutation, useGetMeQuery, useUpdateProfileMutation, useGetmyPostsQuery, useGetUserByIdQuery, useFollowUserMutation, useUnfollowUserMutation, useGetAllUsersQuery, useChangeUserRoleToAdminMutation, useChangeUserRoleToUserMutation, useDeleteUserMutation, useForgetPasswordMutation, useResetPasswordMutation, useSendFriendRequestMutation, useAcceptFriendRequestMutation, useDeclineFriendRequestMutation, useSharePostMutation } = authApi;
+export const { useLoginMutation, useSignupMutation, useGetMeQuery, useUpdateProfileMutation, useGetmyPostsQuery, useGetUserByIdQuery, useFollowUserMutation, useUnfollowUserMutation, useGetAllUsersQuery, useChangeUserRoleToAdminMutation, useChangeUserRoleToUserMutation, useDeleteUserMutation, useForgetPasswordMutation, useResetPasswordMutation, useSendFriendRequestMutation, useAcceptFriendRequestMutation, useDeclineFriendRequestMutation, useSharePostMutation, useJoinGroupMutation } = authApi;

@@ -14,6 +14,7 @@ import { setUser } from "@/redux/features/Auth/authSlice";
 import { verifyToken } from "@/utils/verifyToken";
 import { toast } from "sonner";
 import { ICONS } from "../../../../../public";
+import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
 
 type TLoginData = {
   email: string;
@@ -152,19 +153,19 @@ const LoginPage = () => {
             {/* Forgot password */}
             <Link
               href={"/forget-password"}
-              className="text-primary-30 font-medium text-end mt-2 cursor-pointer hover:underline"
+              className="text-primary-20 font-medium text-end mt-2 cursor-pointer hover:underline"
             >
               Forgot Password?
             </Link>
           </div>
 
           <Button variant="primary">
-            {isLoginIn ? "Login In..." : "Login"}
+            {isLoginIn ? <LoadingSpinner/> : "Login"}
           </Button>
 
           <p className="max-w-[500px] text-sm text-[#364F53] dark:text-[#D9D9D9]/50 text-center">
             Don't have an account?{" "}
-            <Link href={"/signup"} className="font-semibold text-primary-30">
+            <Link href={"/signup"} className="font-semibold text-primary-20">
               Sign Up
             </Link>
           </p>
@@ -173,7 +174,7 @@ const LoginPage = () => {
             <button
               type="button"
               onClick={fillDemoCredentials}
-              className="font-semibold text-primary-30"
+              className="font-semibold text-primary-20"
             >
               Demo User
             </button>

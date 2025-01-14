@@ -16,7 +16,6 @@ const AllFriends = ({ friendTab, setFriendTab }: { friendTab: "All Friends" | "F
     const friendsList = allUsers?.data?.filter((user: TUser) =>
         user?.friends.includes(userId)
     );
-    console.log(friendsList)
 
     return (
         <FriendPageContainer title="Your All Friends" friendTab={friendTab} setFriendTab={setFriendTab} isTabVisible={true} >

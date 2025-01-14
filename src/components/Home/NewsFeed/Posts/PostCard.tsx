@@ -18,6 +18,7 @@ import { BiLike } from "react-icons/bi";
 import { IoShareSocial } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
+import { MdDateRange } from "react-icons/md";
 
 const PostCard = ({ post }: { post: TPost }) => {
   const user = useAppSelector(selectCurrentUser) as TUser | null;
@@ -102,7 +103,7 @@ const PostCard = ({ post }: { post: TPost }) => {
               ""
             )}
           </div>
-          <p className="text-sm text-primary-10/50">1 hr ago</p>
+          <p className="text-primary-10/50 text-xs flex items-center gap-1"><MdDateRange /> {post?.createdAt ? new Date(post.createdAt).toLocaleDateString() : ""}</p>
         </div>
       </div>
 

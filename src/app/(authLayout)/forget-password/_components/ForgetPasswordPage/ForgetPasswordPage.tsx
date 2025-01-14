@@ -4,6 +4,7 @@ import { useForgetPasswordMutation } from "@/redux/features/Auth/authApi";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
 
 
 type TForgetPasswordData = {
@@ -67,7 +68,7 @@ const ForgetPasswordPage = () => {
           
 
           <Button variant="primary">
-            {isLoading ? "Loading..." : "Proceed"}
+            {isLoading ? <LoadingSpinner/> : "Proceed"}
           </Button>
 
           <p className="max-w-[500px] text-sm text-[#364F53] dark:text-[#D9D9D9]/50 text-center">

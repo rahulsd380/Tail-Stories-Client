@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from "sonner";
 import { Suspense } from 'react';
+import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
 
 type TResetPasswordData = {
   email: string;
@@ -103,7 +104,7 @@ if (!token) {
           
 
           <Button variant="primary">
-            {isLoading ? "Loading..." : "Proceed"}
+            {isLoading ? <LoadingSpinner/> : "Proceed"}
           </Button>
 
           <p className="max-w-[500px] text-sm text-[#364F53] dark:text-[#D9D9D9]/50 text-center">

@@ -16,6 +16,7 @@ import { AiOutlineProfile } from "react-icons/ai";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { GoHome } from "react-icons/go";
+import { IoBookOutline } from "react-icons/io5";
 
 export type TLoggedInUser = {
   userId: string;
@@ -64,6 +65,11 @@ const Navbar = () => {
       icon: <AiOutlineProfile className="text-primary-20 text-2xl" />,
       path: "/pages"
     },
+    {
+      label: "All Posts",
+      icon: <IoBookOutline className="text-primary-20 text-2xl" />,
+      path: "/all-posts"
+    },
   ];
 
   if (!isMounted) {
@@ -97,7 +103,7 @@ const Navbar = () => {
               />
               <FiSearch
                 onClick={handleSearch}
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-primary-30 cursor-pointer"
+                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-primary-20 cursor-pointer"
                 size={20}
               />
             </div>
