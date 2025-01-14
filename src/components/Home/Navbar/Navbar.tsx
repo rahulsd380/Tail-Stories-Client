@@ -17,6 +17,14 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { GoHome } from "react-icons/go";
 
+export type TLoggedInUser = {
+  userId: string;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+};
+
 
 
 const Navbar = () => {
@@ -29,8 +37,7 @@ const Navbar = () => {
   };
 
   const [isMounted, setIsMounted] = useState(false);
-  const user = useAppSelector(selectCurrentUser);
-  console.log(user)
+  const user = useAppSelector(selectCurrentUser) as TLoggedInUser;
 
   useEffect(() => {
     setIsMounted(true);

@@ -3,7 +3,7 @@ import Container from "@/components/Container/Container";
 import Profile from "../_components/Profile/Profile";
 import People from "@/components/Home/People/People";
 import AllFriends from "@/components/FriendsPage/AllFriends/AllFriends";
-import SuggestedFriends from "@/components/FriendsPage/SuggestedFriends/SuggestedFriends";
+// import SuggestedFriends from "@/components/FriendsPage/SuggestedFriends/SuggestedFriends";
 import YouMayKnow from "@/components/FriendsPage/YouMayKnow/YouMayKnow";
 import { useState } from "react";
 import FriendRequests from "@/components/FriendsPage/FriendRequests/FriendRequests";
@@ -24,7 +24,7 @@ const Friends = () => {
                         :
                         <AllFriends friendTab={friendTab} setFriendTab={setFriendTab} />
                     }
-                    <SuggestedFriends />
+                    {/* <SuggestedFriends /> */}
                     <YouMayKnow />
                 </div>
             </div>
