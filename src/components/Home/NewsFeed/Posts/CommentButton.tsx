@@ -14,6 +14,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/Auth/authSlice";
 import { BiComment } from "react-icons/bi";
 
+
 type TCommentprops = {
   postId: string
   postedAt: ReactNode;
@@ -28,6 +29,7 @@ type TCommentprops = {
   contentType: string;
 }
 
+
 const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, contentType, title, images, category, upvotes, downvotes, postedAt, postId, comments }) => {
   const user = useAppSelector(selectCurrentUser) as TUser | null;
   const [upvotePost] = useUpvotePostMutation();
@@ -35,12 +37,14 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
   const [deleteComment] = useDeleteCommentMutation();
   const [openPostModal, setOpenPostModal] = useState<boolean>(false);
 
+
   const userInfo = {
     username: "Rahul Sutradhar",
     profileImage: IMAGES.img1,
     isVerified: true,
     timeAgo: "1 hr ago"
   };
+
 
   const handleUpvote = async () => {
     const upvoteData = {
@@ -55,6 +59,7 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
     }
   };
 
+
   const handleDownvote = async () => {
     const downvoteData = {
       postId: postId,
@@ -68,6 +73,7 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
     }
   };
 
+
   const handleDeleteComment = async (commentId: string) => {
     try {
       const res = await deleteComment({ postId, commentId }).unwrap();
@@ -79,23 +85,29 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
 
 
 
+
+
+
   return (
     <div className="font-Lato">
 
-      <button onClick={() => setOpenPostModal(true)} className="flex items-center justify-center gap-4 text-sm text-primary-10/80">
+
+      <button onClick={() => setOpenPostModal(true)} className="flex items-center justify-center gap-2 md:gap-4 text-sm text-primary-10/80">
         <div className="flex items-center gap-2">
-          <BiComment className="text-primary-20/80 text-xl" />
+          <BiComment className="text-primary-20/80 text-base md:text-xl" />
           Comments
         </div>
         <div className="w-[1px] h-[23px] bg-primary-60"></div>
         {comments?.length}
       </button>
 
+
       <Modal
         openModal={openPostModal}
         setOpenModal={setOpenPostModal}
         classNames="max-w-[1000px] w-full h-[500px] p-4"
       >
+
 
         {/* Header */}
         {/* Close button */}
@@ -112,9 +124,11 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
           <h1 className="text-sm">Go Back</h1>
         </button>
 
+
         <div className="flex gap-10 h-full mt-5">
           {/* Left side */}
           <div className="w-[65%] overflow-y-auto scrollbar-hide">
+
 
             <div className="space-y-3">
               <PostUserName user={userInfo} />
@@ -124,16 +138,19 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
             </div>
           </div>
 
+
           {/* Right side */}
           <div className="w-[35%] border-l pl-3 overflow-y-auto scrollbar-hide">
             <div className="border-b pb-2 flex items-cente justify-between">
               <h1 className="text-primary-10/90">Post Info</h1>
+
 
               <div className="flex items-center gap-4">
                 <Image src={ICONS.bookmarkOutline} width={17} height={17} alt="bookmark-icon" />
                 <Image src={ICONS.copyLink} width={17} height={17} alt="link-icon" />
               </div>
             </div>
+
 
             {/* Post info */}
             <div className="flex items-center gap-6 mt-5 border-b pb-5">
@@ -144,21 +161,25 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
                 <p className="text-primary-10 px-3 py-1">Downvotes</p>
               </div>
 
+
               <div className="flex flex-col gap-4">
                 <div className="px-3 py-1 flex justify-center items-center gap-3 border rounded-md text-primary-10/70 w-fit">
                   <Image src={ICONS.pet} width={17} height={17} alt="date-icon" />
                   {category}
                 </div>
 
+
                 <div className="px-3 py-1 flex justify-center items-center gap-3 border rounded-md text-primary-10/70 w-fit">
                   <Image src={ICONS.date} width={17} height={17} alt="date-icon" />
                   {postedAt}
                 </div>
 
+
                 <div className="px-3 py-1 flex justify-center items-center gap-3 border rounded-md text-primary-10/70 w-fit">
                   <Image src={ICONS.upvote} width={20} height={20} alt="upvote-icon" />
                   {upvotes?.length}
                 </div>
+
 
                 <div className="px-3 py-1 flex justify-center items-center gap-3 border rounded-md text-primary-10/70 w-fit">
                   <Image src={ICONS.downvote} width={20} height={20} alt="downvote-icon" />
@@ -166,6 +187,8 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
                 </div>
               </div>
             </div>
+
+
 
 
             <div className="flex items-center justify-between gap-4 w-full mt-5">
@@ -178,13 +201,16 @@ const CommentButton: React.FC<TCommentprops> = ({ description, isVerified, conte
                 Upvote
               </Button>
 
+
             </div>
           </div>
         </div>
       </Modal>
 
+
     </div>
   );
 };
+
 
 export default CommentButton;

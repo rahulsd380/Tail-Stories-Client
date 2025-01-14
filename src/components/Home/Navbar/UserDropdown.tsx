@@ -18,12 +18,16 @@ import { FaChalkboardUser } from "react-icons/fa6";
 
 
 
+
+
+
 const UserDropdown = () => {
   const {data} = useGetMeQuery({});
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const dropDownRef = useRef<HTMLDivElement | null>(null);
+
 
   useEffect(() => {
     const close = (e: MouseEvent) => {
@@ -35,9 +39,11 @@ const UserDropdown = () => {
       }
     };
 
+
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, []);
+
 
   const userMenuItems = [
     { label: "Dashboard", path: "/dashboard", icon: <RxDashboard /> },
@@ -53,17 +59,19 @@ const UserDropdown = () => {
     },
   ];
 
+
   const handleLogout = () => {
     dispatch(logout());
     router.push("/login");
     toast.success("Logged out successfully.");
   };
 
+
   return (
     <div ref={dropDownRef} className="relative mx-auto w-fit">
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="bg-primary-70 px-2 py-[6px] rounded-3xl border border-primary-20 focus:outline-none focus:border-primary-20/80 transition duration-300 focus:shadow flex items-center gap-3 w-[200px]"
+        className="bg-primary-70 px-2 py-[6px] rounded-3xl border border-primary-20 focus:outline-none focus:border-primary-20/80 transition duration-300 focus:shadow flex items-center gap-2 md:gap-3 w-[160px] md:w-[200px]"
       >
         <div className="size-8 rounded-full bg-white border flex items-center justify-center">
         {
@@ -71,7 +79,7 @@ const UserDropdown = () => {
           <Image
           width={40}
           height={40}
-        className="size-8 rounded-full object-cover"
+        className=" size-5 md:size-8 rounded-full object-cover"
           src={data?.data?.profilePicture}
           alt=""
         />
@@ -79,23 +87,24 @@ const UserDropdown = () => {
         <Image
           width={25}
           height={25}
-          className="size-6 rounded-full object-cover"
+          className="size-4 md:size-6 rounded-full object-cover"
           src={ICONS.user}
           alt=""
         />
         }
         </div>
-        <div className="flex items-center justify-between flex-1 gap-[6px]">
-          <h1 className="font-medium">{data?.data?.name}</h1>
+        <div className="flex items-center justify-between flex-1 gap-[3px] md:gap-[6px]">
+          <h1 className="font-medium text-xs md:text-base ">{data?.data?.name}</h1>
           <Image
             src={ICONS.downArrow}
             width={15}
             height={15}
             alt="notification icon"
-            className="dark:hidden cursor-pointer"
+            className="size-3 md:size-4 dark:hidden cursor-pointer"
           />
         </div>
       </button>
+
 
       <div
         className={`${
@@ -118,6 +127,7 @@ const UserDropdown = () => {
           </Link>
         ))}
 
+
         {/* Logout button */}
         <button
           onClick={handleLogout}
@@ -137,5 +147,6 @@ const UserDropdown = () => {
     </div>
   );
 };
+
 
 export default UserDropdown;

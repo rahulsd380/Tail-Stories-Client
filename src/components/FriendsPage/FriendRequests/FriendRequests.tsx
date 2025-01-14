@@ -5,13 +5,15 @@ import { Dispatch, SetStateAction } from "react";
 import { useGetMeQuery } from "@/redux/features/Auth/authApi";
 import FriendRequestCard from "./FriendRequestCard";
 
+
 const FriendRequests = ({ friendTab, setFriendTab }: { friendTab: "All Friends" | "Friend Requests", setFriendTab: Dispatch<SetStateAction<"All Friends" | "Friend Requests">> }) => {
     const { data: me } = useGetMeQuery({});
     const receivedRequests = me?.data?.friendReq?.received || [];
     console.log(receivedRequests);
 
+
     return (
-        <FriendPageContainer title="Friend Requests" grid="grid-cols-3" friendTab={friendTab} setFriendTab={setFriendTab} isTabVisible={true}>
+        <FriendPageContainer title="Friend Requests" grid="grid-cols-1 md:grid-cols-2 xl:grid-cols-3" friendTab={friendTab} setFriendTab={setFriendTab} isTabVisible={true}>
             {
                 receivedRequests?.length < 1 ?
                 <p>No request received</p>
@@ -26,5 +28,6 @@ const FriendRequests = ({ friendTab, setFriendTab }: { friendTab: "All Friends" 
         </FriendPageContainer>
     );
 };
+
 
 export default FriendRequests;

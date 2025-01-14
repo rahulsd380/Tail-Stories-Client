@@ -8,22 +8,26 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectCurrentUser } from "@/redux/features/Auth/authSlice";
 import { TLoggedInUser } from "@/components/Home/Navbar/Navbar";
 
+
 const AllFriends = ({ friendTab, setFriendTab }: { friendTab: "All Friends" | "Friend Requests"; setFriendTab: Dispatch<SetStateAction<"All Friends" | "Friend Requests">>; }) => {
     const { data: allUsers } = useGetAllUsersQuery({});
     const user = useAppSelector(selectCurrentUser) as TLoggedInUser;
     const userId = user?.userId
 
+
     const friendsList = allUsers?.data?.filter((user: TUser) =>
         user?.friends.includes(userId)
     );
 
+
     return (
-        <FriendPageContainer title="Your All Friends" friendTab={friendTab} setFriendTab={setFriendTab} isTabVisible={true} >
-            {friendsList?.map((user: TUser) => 
+        <FriendPageContainer title="Your All Friends" grid={"grid-cols-1 md:grid-cols-2 xl:grid-cols-4"} friendTab={friendTab} setFriendTab={setFriendTab} isTabVisible={true} >
+            {friendsList?.map((user: TUser) =>
                 <FriendCard variant="Friend" key={user._id} {...user} />
             )}
         </FriendPageContainer>
     );
 };
+
 
 export default AllFriends;

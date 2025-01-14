@@ -8,6 +8,7 @@ import YouMayKnow from "@/components/FriendsPage/YouMayKnow/YouMayKnow";
 import { useState } from "react";
 import FriendRequests from "@/components/FriendsPage/FriendRequests/FriendRequests";
 
+
 const Friends = () => {
     const [friendTab, setFriendTab] = useState<"All Friends" | "Friend Requests">("Friend Requests");
     return (
@@ -17,7 +18,7 @@ const Friends = () => {
                     <Profile />
                     <People />
                 </div>
-                <div className="w-[75%] flex flex-col gap-5 overflow-y-auto scrollbar-hide">
+                <div className=" w-full lg:w-[75%] flex flex-col gap-5 overflow-y-auto scrollbar-hide">
                     {
                         friendTab === "Friend Requests" ?
                         <FriendRequests friendTab={friendTab} setFriendTab={setFriendTab} />

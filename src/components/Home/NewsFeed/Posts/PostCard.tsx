@@ -20,6 +20,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
 import { MdDateRange } from "react-icons/md";
 
+
 const PostCard = ({ post }: { post: TPost }) => {
   const user = useAppSelector(selectCurrentUser) as TUser | null;
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false);
@@ -30,6 +31,7 @@ const PostCard = ({ post }: { post: TPost }) => {
   const isVerified = data?.data?.isVerified;
   const contentType = post?.contentType;
   const {data : userData} = useGetUserByIdQuery(post?.authorId);
+
 
   const handleUpvote = async () => {
     const upvoteData = {
@@ -43,6 +45,7 @@ const PostCard = ({ post }: { post: TPost }) => {
     }
   };
 
+
   const handleSharePost = async () => {
     try {
         const response = await sharePost(post?._id).unwrap();
@@ -54,6 +57,7 @@ const PostCard = ({ post }: { post: TPost }) => {
         console.log(error);
     }
 };
+
 
   return (
     <div className="bg-white p-4 shadow rounded-xl font-Lato flex flex-col gap-4 mb-4">
@@ -77,6 +81,7 @@ const PostCard = ({ post }: { post: TPost }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <h1 className="font-semibold text-primary-10">{userData?.data?.name}</h1>
+
 
               {isVerified && (
                 <Image
@@ -107,6 +112,7 @@ const PostCard = ({ post }: { post: TPost }) => {
         </div>
       </div>
 
+
       <div className="flex-1">
         {/* Card body */}
         <div className="">
@@ -118,6 +124,7 @@ const PostCard = ({ post }: { post: TPost }) => {
             contentType={contentType}
           />
 
+
           {/* Post Images */}
           {!isVerified && contentType === "premium" ? (
             <div className="blur-md">
@@ -127,10 +134,11 @@ const PostCard = ({ post }: { post: TPost }) => {
             <PostImages images={post?.images || []} />
           )}
 
+
           <div className="flex items-center justify-between border-y py-2 mt-4">
-            <div className="flex items-center justify-center gap-4 text-sm text-primary-10/80">
+            <div className="flex items-center justify-center gap-2 md:gap-4 text-sm text-primary-10/80">
               <button onClick={handleUpvote} className="flex items-center gap-2">
-                <BiLike className="text-primary-20/80 text-xl" />
+                <BiLike className="text-primary-20/80 text-base md:text-xl" />
                 Like
               </button>
               <div className="w-[1px] h-[23px] bg-primary-60"></div>
@@ -157,9 +165,9 @@ const PostCard = ({ post }: { post: TPost }) => {
                 Unlock
               </button>
             ) : (
-              <div className="flex items-center justify-center gap-4 text-sm text-primary-10/80">
+              <div className="flex items-center justify-center gap-2 md:gap-4 text-sm text-primary-10/80">
                 <button onClick={handleSharePost} className="flex items-center gap-2">
-                  <IoShareSocial className="text-primary-20/80 text-xl" />
+                  <IoShareSocial className="text-primary-20/80 text-base md:text-xl" />
                   {
                     isSharingPost? <LoadingSpinner/> : isPostShared ? "Shared" : "Share"
                   }
@@ -169,9 +177,11 @@ const PostCard = ({ post }: { post: TPost }) => {
               </div>
             )}
 
+
           </div>
         </div>
       </div>
+
 
       <Modal
         openModal={openPaymentModal}
@@ -183,5 +193,6 @@ const PostCard = ({ post }: { post: TPost }) => {
     </div>
   );
 };
+
 
 export default PostCard;

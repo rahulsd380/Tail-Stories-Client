@@ -11,12 +11,11 @@ const Groups = () => {
                     <Profile />
                     <People />
                 </div>
-                <div className="w-[75%] flex flex-col gap-5 overflow-y-auto scrollbar-hide">
+                <div className="w-full lg:w-[75%]  flex flex-col gap-5 overflow-y-auto scrollbar-hide">
                     <AllGroups />
                 </div>
             </div>
         </Container>
     );
 };
-
 export default Groups;
