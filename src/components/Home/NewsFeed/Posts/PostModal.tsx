@@ -16,6 +16,7 @@ import { selectCurrentUser } from "@/redux/features/Auth/authSlice";
 import { useCreatePostMutation } from "@/redux/features/Posts/postsApi";
 import { TUser } from "./Comments";
 import { toast } from "sonner";
+import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
 
 type TPostModalTypes = {
   showCrossIcon: boolean;
@@ -217,7 +218,7 @@ const PostModal: React.FC<TPostModalTypes> = ({
             type="submit"
             className="bg-primary-gradient text-white px-3 py-3 rounded-md"
           >
-            {isCreatingPost ? "Posting" : "Create Post"}
+            {isCreatingPost ? <LoadingSpinner/> : "Create Post"}
           </button>
         </div>
 

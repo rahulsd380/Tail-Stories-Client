@@ -26,4 +26,5 @@ export type TVote = {
     category: string;
     createdAt: Date;
     authorId: TUser;
+    totalShared : number;
   };

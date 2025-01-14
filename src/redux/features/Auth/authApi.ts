@@ -100,6 +100,14 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["users"],
     }),
 
+    sharePost: builder.mutation({
+      query: (postId) => ({
+        method: "PUT",
+        url: `/users/share/${postId}`,
+      }),
+      invalidatesTags: ["posts"],
+    }),
+
     changeUserRoleToAdmin: builder.mutation({
       query: (userId) => ({
         url: `/users/make-admin/${userId}`,
@@ -149,4 +157,4 @@ const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useSignupMutation, useGetMeQuery, useUpdateProfileMutation, useGetmyPostsQuery, useGetUserByIdQuery, useFollowUserMutation, useUnfollowUserMutation, useGetAllUsersQuery, useChangeUserRoleToAdminMutation, useChangeUserRoleToUserMutation, useDeleteUserMutation, useForgetPasswordMutation, useResetPasswordMutation, useSendFriendRequestMutation, useAcceptFriendRequestMutation, useDeclineFriendRequestMutation } = authApi;
+export const { useLoginMutation, useSignupMutation, useGetMeQuery, useUpdateProfileMutation, useGetmyPostsQuery, useGetUserByIdQuery, useFollowUserMutation, useUnfollowUserMutation, useGetAllUsersQuery, useChangeUserRoleToAdminMutation, useChangeUserRoleToUserMutation, useDeleteUserMutation, useForgetPasswordMutation, useResetPasswordMutation, useSendFriendRequestMutation, useAcceptFriendRequestMutation, useDeclineFriendRequestMutation, useSharePostMutation } = authApi;

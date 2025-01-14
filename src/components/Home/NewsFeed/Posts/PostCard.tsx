@@ -6,7 +6,7 @@ import CommentButton from "./CommentButton";
 import PostDescription from "./PostDescription";
 import PostImages from "./PostImages";
 import { TPost } from "./posts.types";
-import { useGetMeQuery } from "@/redux/features/Auth/authApi";
+import { useGetMeQuery, useGetUserByIdQuery, useSharePostMutation } from "@/redux/features/Auth/authApi";
 import { useUpvotePostMutation } from "@/redux/features/Posts/postsApi";
 import Modal from "@/components/Modal/Modal";
 import { useState } from "react";
@@ -17,14 +17,18 @@ import { TUser } from "./Comments";
 import { BiLike } from "react-icons/bi";
 import { IoShareSocial } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
+import LoadingSpinner from "@/components/Reusable/LoadingSpinner";
 
 const PostCard = ({ post }: { post: TPost }) => {
   const user = useAppSelector(selectCurrentUser) as TUser | null;
   const [openPaymentModal, setOpenPaymentModal] = useState<boolean>(false);
   const [upvotePost] = useUpvotePostMutation();
+  const [sharePost, {isLoading:isSharingPost}] = useSharePostMutation();
+  const [isPostShared, setIsPostShared] = useState(false);
   const { data } = useGetMeQuery({});
   const isVerified = data?.data?.isVerified;
   const contentType = post?.contentType;
+  const {data : userData} = useGetUserByIdQuery(post?.authorId);
 
   const handleUpvote = async () => {
     const upvoteData = {
@@ -38,7 +42,18 @@ const PostCard = ({ post }: { post: TPost }) => {
       console.log(err);
     }
   };
-  console.log(post);
+
+  const handleSharePost = async () => {
+    try {
+        const response = await sharePost(post?._id).unwrap();
+        console.log(response);
+        if (response?.message === "Friend request sent successfully") {
+          setIsPostShared(true);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
   return (
     <div className="bg-white p-4 shadow rounded-xl font-Lato flex flex-col gap-4 mb-4">
@@ -61,7 +76,7 @@ const PostCard = ({ post }: { post: TPost }) => {
         <div className="w-full flex-1">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h1 className="font-semibold text-primary-10">{post?.authorId?.name}</h1>
+              <h1 className="font-semibold text-primary-10">{userData?.data?.name}</h1>
 
               {isVerified && (
                 <Image
@@ -143,12 +158,14 @@ const PostCard = ({ post }: { post: TPost }) => {
               </button>
             ) : (
               <div className="flex items-center justify-center gap-4 text-sm text-primary-10/80">
-                <div className="flex items-center gap-2">
+                <button onClick={handleSharePost} className="flex items-center gap-2">
                   <IoShareSocial className="text-primary-20/80 text-xl" />
-                  Share
-                </div>
+                  {
+                    isSharingPost? <LoadingSpinner/> : isPostShared ? "Shared" : "Share"
+                  }
+                </button>
                 <div className="w-[1px] h-[23px] bg-primary-60"></div>
-                {post?.comments?.length}
+                {post?.totalShared}
               </div>
             )}
 
