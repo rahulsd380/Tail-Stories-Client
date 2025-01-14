@@ -5,7 +5,6 @@ import { TUser } from './user.types';
 
 const People = () => {
   const {data:allUsers} = useGetAllUsersQuery({});
-  console.log(allUsers)
 
   return (
     <div className="rounded-xl bg-white p-4 shadow font-Lato">
