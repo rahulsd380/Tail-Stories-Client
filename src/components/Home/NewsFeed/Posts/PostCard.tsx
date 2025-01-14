@@ -36,8 +36,7 @@ const PostCard = ({ post }: { post: TPost }) => {
       userId: data?.data?._id,
     };
     try {
-      const res = await upvotePost(upvoteData).unwrap();
-      console.log(res);
+      await upvotePost(upvoteData).unwrap();
     } catch (err) {
       console.log(err);
     }
