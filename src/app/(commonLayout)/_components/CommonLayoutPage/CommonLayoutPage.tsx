@@ -10,9 +10,10 @@ import { TPost } from '../../../../components/Home/NewsFeed/Posts/posts.types';
 import { useGetAllPostsQuery } from '@/redux/features/Posts/postsApi';
 import { useAppSelector } from '@/redux/hooks';
 import { selectCurrentUser } from '@/redux/features/Auth/authSlice';
+import { TLoggedInUser } from '@/components/Home/Navbar/Navbar';
 
 const CommonLayoutPage = () => {
-    const user = useAppSelector(selectCurrentUser);
+    const user = useAppSelector(selectCurrentUser) as TLoggedInUser;
     const router = useRouter();
 
     useEffect(() => {

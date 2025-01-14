@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-// postcard
-// commentcard
-// commentbtn
 
-
-"use client"
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,39 +20,6 @@ type TLoginData = {
   password: string;
 };
 
-// type TAuthResponse ={
-//   success: boolean;
-//   message: string;
-//   data: {
-//     accessToken: string;
-//     refreshToken: string;
-//     user: {
-//       _id: string;
-//       name: string;
-//       email: string;
-//       role: string;
-//     };
-//   };
-// }
-
-// interface ErrorResponse {
-//   error: {
-//     data: {
-//       errorSourse: {
-//         message: string;
-//         stack: string;
-//         success: boolean;
-//       };
-//       status: number;
-//     };
-//   };
-//   meta: {
-//     request: Request;
-//     response: Response;
-//   };
-// }
-
-
 const LoginPage = () => {
   const [login, { isLoading: isLoginIn }] = useLoginMutation();
   const router = useRouter();
@@ -67,6 +29,7 @@ const LoginPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<TLoginData>();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -79,18 +42,20 @@ const LoginPage = () => {
     try {
       const response = await login(loginData).unwrap();
       const user = verifyToken(response.data?.accessToken);
-      console.log(response)
+      console.log(response);
 
       dispatch(setUser({ user, token: response.data.accessToken }));
       toast.success("Logged in successfully.");
       router.push("/");
-    } catch (err:any) {
+    } catch (err: any) {
       toast.error(err?.data?.message);
     }
   };
 
-
-  
+  const fillDemoCredentials = () => {
+    setValue("email", "rahuladmin@gmail.com");
+    setValue("password", "11111111");
+  };
 
   return (
     <div className="w-full">
@@ -117,7 +82,7 @@ const LoginPage = () => {
               {...register("email", { required: "Email is required" })}
               type="text"
               id="email"
-              className="bg-primary-70 px-3 py-2 rounded-md border focus:outline-none focus:border-primary-20 transition duration-300 focus:shadow flex-1 w-full "
+              className="bg-primary-70 px-3 py-2 rounded-md border focus:outline-none focus:border-primary-20 transition duration-300 focus:shadow flex-1 w-full"
               placeholder="Enter your email"
             />
             {errors.email && (
@@ -172,7 +137,6 @@ const LoginPage = () => {
             {/* Remember Me */}
             <div className="flex items-center gap-2">
               <input
-                // {...register("rememberMe")}
                 type="checkbox"
                 id="rememberMe"
                 className="accent-primary-30 size-4"
@@ -186,7 +150,10 @@ const LoginPage = () => {
             </div>
 
             {/* Forgot password */}
-            <Link href={"/forget-password"} className="text-primary-30 font-medium text-end mt-2 cursor-pointer hover:underline">
+            <Link
+              href={"/forget-password"}
+              className="text-primary-30 font-medium text-end mt-2 cursor-pointer hover:underline"
+            >
               Forgot Password?
             </Link>
           </div>
@@ -201,6 +168,16 @@ const LoginPage = () => {
               Sign Up
             </Link>
           </p>
+
+          <div className="flex items-center justify-center">
+            <button
+              type="button"
+              onClick={fillDemoCredentials}
+              className="font-semibold text-primary-30"
+            >
+              Demo User
+            </button>
+          </div>
         </form>
       </div>
     </div>
